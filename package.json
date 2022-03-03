@@ -1,0 +1,26 @@
+{
+  "name": "m33-final-school-toners-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Irina-abah/m33-final-school-toners-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Irina-abah/m33-final-school-toners-api/issues"
+  },
+  "homepage": "https://github.com/Irina-abah/m33-final-school-toners-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "sequelize": "^6.17.0"
+  }
+}
