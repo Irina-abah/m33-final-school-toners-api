@@ -1,6 +1,6 @@
 const School = require("../models/school");
 
-const addSchool = (req, res) => {
+exports.addSchool = (req, res) => {
   const {
     id,
     name,
@@ -13,6 +13,14 @@ const addSchool = (req, res) => {
   .catch(err => console.log(err))
 }
 
-module.exports = {
-  addSchool
-};
+exports.allSchools = (req, res) => {
+  School.findAll()
+    .then((schools) => {
+      if (schools) {
+        res.send(schools)
+      } else {
+        console.log("No schools found")
+      }
+    })
+    .catch(err => console.log(err))
+}
