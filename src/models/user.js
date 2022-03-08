@@ -1,7 +1,6 @@
-const sequelize = require("../utils/connection");
+const sequelize = require("../db/connection");
 const { DataTypes } = require("sequelize");
 
-module.exports = (DataTypes , sequelize) => {
   const User = sequelize.define('user', {
     name: {
       type: DataTypes.STRING,
@@ -16,5 +15,5 @@ module.exports = (DataTypes , sequelize) => {
       allowNull: false,
     }
   })
-  return User;
-  };
+  
+  module.exports = User;
