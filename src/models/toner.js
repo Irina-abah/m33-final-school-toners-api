@@ -18,10 +18,6 @@ module.exports = (DataTypes , sequelize) => {
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    },
-    printer_model: {
-      type: DataTypes.STRING,
-      allowNull: false,
     }
   })
   return Toner;

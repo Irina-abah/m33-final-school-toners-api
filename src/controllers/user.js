@@ -3,39 +3,14 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-// exports.addSchool = (req, res) => {
-//   const {
-//     id,
-//     name,
-//     location,
-//     printer_model
-//   } = req.body;
-//   School.sync()
-//   School.create({id, name, location, printer_model})
-//   .then((school) => res.send(school))
-//   .catch(err => console.log(err))
-// }
-
-// exports.allSchools = (req, res) => {
-//   School.findAll()
-//     .then((schools) => {
-//       if (schools) {
-//         res.send(schools)
-//       } else {
-//         console.log("No schools found")
-//       }
-//     })
-//     .catch(err => console.log(err))
-// }
-
-exports.getCurrentUser = (req, res, next) => {
+exports.getCurrentUser = (req, res) => {
   User.findOne({
     where: {
-      id: req.user._id
+      id: req.body.id
     }
   })
     .then((user) => res.send(user))
-    .catch(next);
+    .catch(err => console.log(err));
 };
 
 exports.register = (req, res) => {
@@ -50,7 +25,7 @@ exports.register = (req, res) => {
       name, email, password: hash,
     }))
     .then((user) => res.send({
-      _id: user._id,
+      id: user.id,
       name: user.name,
       email: user.email,
     }))
@@ -84,22 +59,28 @@ exports.login = (req, res) => {
     });
 };
 
-// const updateUserInfo = (req, res, next) => {
-//   const { email, name } = req.body;
-
-//   User.findByIdAndUpdate(req.user._id, { email, name }, {
-//     new: true,
-//     runValidators: true,
-//     context: 'query',
-//   })
-//     .orFail(new NotFoundError(USER_ERROR_MESSAGES.NO_FOUND_ERROR))
-//     .then((user) => res.send(user))
-//     .catch((err) => {
-//       if (err.name === 'ValidationError') {
-//         throw new BadRequestError(USER_ERROR_MESSAGES.NO_UPDATE_ERROR);
-//       }
-//       throw err;
-//     })
-//     .catch(next);
-// };
-
+exports.updateUserInfo = (req, res) => {
+    User.update({
+      name: req.body.name,
+      email: req.body.email
+    },
+    {where: {id: req.body.id}
+    })  
+    .then((num) => {
+      console.log(num)
+      if (num == 1) {
+        res.send({
+          message: "User was updated successfully."
+        })
+      } else {
+        res.send({
+          message: "There is a problem with ID"
+        })
+      }
+      // return num;
+    })
+    .catch((err) => {
+      console.log(err)
+      res.status(500).send({error: err.message})
+    })
+};
