@@ -77,7 +77,6 @@ exports.updateUserInfo = (req, res) => {
           message: "There is a problem with ID"
         })
       }
-      // return num;
     })
     .catch((err) => {
       console.log(err)
