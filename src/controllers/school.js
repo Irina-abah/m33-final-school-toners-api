@@ -1,5 +1,5 @@
 const School = require("../models/school");
-const School
+// const School
 
 exports.addSchool = (req, res) => {
   const {
