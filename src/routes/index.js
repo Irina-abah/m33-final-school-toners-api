@@ -14,7 +14,7 @@ router.get('/crash-test', () => {
 router.post('/signup', register);
 router.post('/signin', login);
 router.use('/users', auth, userRoutes);
-router.use('/schools', auth, schoolRoutes);
+router.use('/schools', schoolRoutes);
 router.use('/toners', auth, tonerRoutes);
 
 router.use('*', auth, (req, res) => {

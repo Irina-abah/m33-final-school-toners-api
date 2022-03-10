@@ -18,11 +18,6 @@ exports.addSchool = (req, res) => {
 
 exports.schoolToners = (req, res) => {
   School.findAll({
-    include: [{
-      model: Toner,
-      as: "Toners",
-      required: true
-    }],
     // where: {
     //   id: Toner.school_id
     // }
