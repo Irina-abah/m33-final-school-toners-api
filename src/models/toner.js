@@ -21,7 +21,7 @@ const { DataTypes } = require("sequelize");
   })
 
   Toners.associate = (models) => {
-    Toners.hasMany(models.Schools, {foreignKey: "school_id"})
+    Toners.hasMany(models.Schools, {foreignKey: "school_id", as : "school_id"});
   }
 
 module.exports = Toners;
