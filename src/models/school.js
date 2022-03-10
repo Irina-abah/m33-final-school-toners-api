@@ -2,11 +2,6 @@ const sequelize = require("../db/connection");
 const { DataTypes } = require("sequelize");
 
 const Schools = sequelize.define('Schools', {
-  id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true
-  },
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -26,7 +21,7 @@ const Schools = sequelize.define('Schools', {
 });
 
 Schools.associate = (models) => {
-  Schools.belongsToMany(models.Toners, { through: 'SchoolToners' })
+  Schools.hasMany(models.Toners, {primaryKey: "school_id"})
 }
 
 module.exports = Schools;
