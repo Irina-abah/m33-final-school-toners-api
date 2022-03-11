@@ -5,10 +5,10 @@ exports.addToner = (req, res) => {
     toner_name,
     colour,
     quantity,
-    school_id
+    // schoolId
   } = req.body;
   Toner.sync()
-  Toner.create({toner_name, colour, quantity, school_id})
+  Toner.create({toner_name, colour, quantity})
   .then((toner) => res.send(toner))
   .catch(err => console.log(err))
 }

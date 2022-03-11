@@ -1,5 +1,6 @@
 const sequelize = require("../db/connection");
 const { DataTypes } = require("sequelize");
+const Toner = require("./toner");
 
 const Schools = sequelize.define('Schools', {
   name: {
@@ -20,8 +21,15 @@ const Schools = sequelize.define('Schools', {
   }
 });
 
-Schools.associate = (models) => {
-  Schools.hasMany(models.Toners, {primaryKey: "school_id"})
-}
+  Schools.hasMany(Toner);
+
+
+// Schools.associate = (models) => {
+//   Schools.hasMany(models.Toners, { as: "Toners"})
+// }
+
+// Schools.associate = (models) => {
+//   Schools.hasMany(models.Toners, {primaryKey: "school_id"})
+// }
 
 module.exports = Schools;

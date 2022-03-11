@@ -1,3 +1,4 @@
+const sequelize = require("../db/connection");
 const School = require("../models/school");
 const Toner = require("../models/toner");
 
@@ -18,13 +19,12 @@ exports.addSchool = (req, res) => {
 
 exports.schoolToners = (req, res) => {
   School.findAll({
-    include: [{
+    include: {
       model: Toner,
-      as: "Toners",
-      required: true
-    }],
+      as: "Toners"
+    },
     // where: {
-    //   id: Toner.school_id
+    //   id: res.school_id
     // }
   })
   .then((schools) => res.send(schools))
