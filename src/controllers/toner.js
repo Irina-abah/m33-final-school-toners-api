@@ -9,7 +9,7 @@ exports.addToner = (req, res) => {
   } = req.body;
   Toner.sync()
   Toner.create({toner_name, colour, quantity, LocationId})
-  .then((toner) => res.send({toner}))
+  .then((toner) => res.send(toner))
   .catch(err => console.log(err))
 }
 
@@ -29,5 +29,34 @@ exports.deleteToner = (req, res) => {
         message: "Cannot find toner"
       })
     }
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).send({error: err.message})
+  })
+}
+
+exports.updateToner = (req, res) => {
+  const { toner_name, colour, quantity } = req.body;
+  Toner.update({ toner_name, colour, quantity }, {
+    where: {
+      id: req.params.id
+    }
+  })
+  .then((num) => {
+    console.log(num)
+    if (num == 1) {
+      res.send({
+        message: "Toner was updated successfully."
+      })
+    } else {
+      res.send({
+        message: "There is a problem with Toner's id"
+      })
+    }
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).send({error: err.message})
   })
 }

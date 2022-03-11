@@ -60,11 +60,12 @@ exports.login = (req, res) => {
 };
 
 exports.updateUserInfo = (req, res) => {
-    User.update({
-      name: req.body.name,
-      email: req.body.email
-    },
-    {where: {id: req.body.id}
+  const { email, name } = req.body;
+  
+    User.update({ email, name },
+      { where: {
+        id: req.body.id
+      }
     })  
     .then((num) => {
       console.log(num)

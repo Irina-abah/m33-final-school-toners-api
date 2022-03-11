@@ -9,6 +9,9 @@ exports.addLocation = (req, res) => {
   } = req.body;
   Location.sync()
   Location.create({location_name, printer_model, printer_type, SchoolId})
-  .then((location) => res.send({location}))
-  .catch(err => console.log(err))
+  .then((location) => res.send(location))
+  .catch((err) => {
+    console.log(err)
+    res.status(500).send({error: err.message})
+  })
 }
