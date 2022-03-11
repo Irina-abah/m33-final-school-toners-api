@@ -13,3 +13,21 @@ exports.addToner = (req, res) => {
   .catch(err => console.log(err))
 }
 
+exports.deleteToner = (req, res) => {
+  Toner.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then((toner) => {
+    if (toner) {
+      res.send({
+        message: "Toner was deleted successfully"
+      })
+    } else {
+      res.send({
+        message: "Cannot find toner"
+      })
+    }
+  })
+}
