@@ -14,18 +14,10 @@ const { DataTypes } = require("sequelize");
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    // schoolId: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: false,
-    // }
   })
 
-  //  Toners.associate = (models) => {
-  //   Toners.hasMany(models.Schools);
-  // }
-
-  // Toners.associate = (models) => {
-  //   Toners.hasMany(models.Schools, {foreignKey: "school_id", as : "school_id"});
-  // }
+   Toners.associate = (models) => {
+    Toners.hasMany(models.Schools);
+  }
 
 module.exports = Toners;
