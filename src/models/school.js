@@ -1,26 +1,14 @@
 const sequelize = require("../db/connection");
 const { DataTypes } = require("sequelize");
-const Toners = require("./toner");
+const Locations = require("./location");
 
-const Schools = sequelize.define('Schools', {
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  location: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  printer_model: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  printer_type: {
+const Schools = sequelize.define("Schools", {
+  school_name: {
     type: DataTypes.STRING,
     allowNull: false,
   }
 });
 
-Schools.hasMany(Toners);
+Schools.hasMany(Locations);
 
 module.exports = Schools;

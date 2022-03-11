@@ -1,7 +1,7 @@
 const sequelize = require("../db/connection");
 const { DataTypes } = require("sequelize");
 
-  const Toners = sequelize.define('Toners', {
+  const Toners = sequelize.define("Toners", {
     toner_name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -16,8 +16,8 @@ const { DataTypes } = require("sequelize");
     },
   })
 
-   Toners.associate = (models) => {
-    Toners.hasMany(models.Schools);
-  }
+  //  Toners.associate = (models) => {
+  //   Toners.hasMany(models.Schools);
+  // }
 
 module.exports = Toners;

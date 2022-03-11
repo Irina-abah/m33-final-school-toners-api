@@ -1,16 +1,14 @@
 const sequelize = require("../db/connection");
 const School = require("../models/school");
 const Toner = require("../models/toner");
+const Location = require("../models/location");
 
 exports.addSchool = (req, res) => {
   const {
-    name,
-    location,
-    printer_model,
-    printer_type
+    school_name
   } = req.body;
   School.sync();
-  School.create({name, location, printer_model, printer_type})
+  School.create({school_name})
   .then((school) => res.send(school))
   .catch(err => console.log(err))
 }
@@ -18,8 +16,21 @@ exports.addSchool = (req, res) => {
 exports.schoolToners = (req, res) => {
   School.findAll({
     include: {
-      model: Toner,
-      as: "Toners"
+      model: Location,
+      as: "Locations",
+      attributes: {
+        exclude: ['createdAt', 'updatedAt']
+      },
+      include: {
+        model: Toner,
+        as: "Toners",
+        attributes: {
+          exclude: ['createdAt', 'updatedAt']
+        }
+      }
+    },
+    attributes: {
+      exclude: ['createdAt', 'updatedAt']
     },
   })
   .then((schools) => res.send(schools))
