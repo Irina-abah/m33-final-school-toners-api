@@ -17,13 +17,13 @@ exports.schoolToners = (req, res) => {
   School.findAll({
     include: {
       model: Location,
-      as: "Locations",
+      as: "locations",
       attributes: {
         exclude: ['createdAt', 'updatedAt']
       },
       include: {
         model: Toner,
-        as: "Toners",
+        as: "toners",
         attributes: {
           exclude: ['createdAt', 'updatedAt']
         }

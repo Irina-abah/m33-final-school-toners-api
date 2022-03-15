@@ -1,7 +1,7 @@
 const sequelize = require("../db/connection");
 const { DataTypes } = require("sequelize");
 
-  const Toners = sequelize.define("Toners", {
+  const Toners = sequelize.define("toners", {
     toner_name: {
       type: DataTypes.STRING,
       allowNull: false,

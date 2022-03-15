@@ -2,7 +2,7 @@ const sequelize = require("../db/connection");
 const { DataTypes } = require("sequelize");
 const Toners = require("./toner")
 
-const Locations = sequelize.define("Locations", {
+const Locations = sequelize.define("locations", {
   location_name: {
     type: DataTypes.STRING,
     allowNull: false,

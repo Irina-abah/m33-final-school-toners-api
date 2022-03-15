@@ -3,13 +3,21 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
+// exports.getCurrentUser = (req, res) => {
+//   User.findOne({
+//     where: {
+//       user: req.user
+//     }
+//   })
+//     .then((user) => res.send(user))
+//     .catch(err => console.log(err));
+// };
+
 exports.getCurrentUser = (req, res) => {
-  User.findOne({
-    where: {
-      id: req.body.id
-    }
-  })
-    .then((user) => res.send(user))
+  User.findByPk(req.userId)
+    .then((user) => res.send({
+      name: user.name,
+      email: user.email}))
     .catch(err => console.log(err));
 };
 
@@ -49,7 +57,7 @@ exports.login = (req, res) => {
           if (!matched) {
             res.status(500).send({message: "Incorrect password"})
           }
-          const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret', { expiresIn: '7d' });
+          const token = jwt.sign({ id: user.id }, NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret', { expiresIn: '7d' });
           res.send({ token });
         })
         .catch(err => {
