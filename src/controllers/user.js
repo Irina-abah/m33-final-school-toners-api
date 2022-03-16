@@ -14,10 +14,10 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 // };
 
 exports.getCurrentUser = (req, res) => {
-  User.findByPk(req.userId)
-    .then((user) => res.send({
-      name: user.name,
-      email: user.email}))
+  User.findOne(req.userId)
+    .then((user) => res.send(
+      { message: "User found"}
+      ))
     .catch(err => console.log(err));
 };
 
@@ -49,6 +49,9 @@ exports.login = (req, res) => {
     }
   })
     .then((user) => {
+      const userId = user.id;
+      const name = user.name;
+      const email = user.email;
       if (!user) {
         res.status(500).send({message: "Entered wrong email"})
       }
@@ -57,8 +60,8 @@ exports.login = (req, res) => {
           if (!matched) {
             res.status(500).send({message: "Incorrect password"})
           }
-          const token = jwt.sign({ id: user.id }, NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret', { expiresIn: '7d' });
-          res.send({ token });
+          const token = jwt.sign({ userId }, NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret', { expiresIn: '7d' });
+          res.send({ name, email, userId, token });
         })
         .catch(err => {
           console.log(err)
@@ -69,12 +72,12 @@ exports.login = (req, res) => {
 
 exports.updateUserInfo = (req, res) => {
   const { email, name } = req.body;
-  
-    User.update({ email, name },
+    
+    User.update({ name, email },
       { where: {
-        id: req.body.id
+        id: req.params.id
       }
-    })  
+    })
     .then((num) => {
       console.log(num)
       if (num == 1) {
