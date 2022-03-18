@@ -14,10 +14,12 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 // };
 
 exports.getCurrentUser = (req, res) => {
-  User.findOne(req.userId)
-    .then((user) => res.send(
-      { message: "User found"}
-      ))
+  User.findOne({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then((user) => res.send(user))
     .catch(err => console.log(err));
 };
 
@@ -49,7 +51,7 @@ exports.login = (req, res) => {
     }
   })
     .then((user) => {
-      const userId = user.id;
+      const id = user.id
       const name = user.name;
       const email = user.email;
       if (!user) {
@@ -60,8 +62,8 @@ exports.login = (req, res) => {
           if (!matched) {
             res.status(500).send({message: "Incorrect password"})
           }
-          const token = jwt.sign({ userId }, NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret', { expiresIn: '7d' });
-          res.send({ name, email, userId, token });
+          const token = jwt.sign({ id }, NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret', { expiresIn: '7d' });
+          res.send({ name, email, id, token });
         })
         .catch(err => {
           console.log(err)

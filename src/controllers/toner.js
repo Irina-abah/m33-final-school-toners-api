@@ -38,6 +38,7 @@ exports.deleteToner = (req, res) => {
 
 exports.updateToner = (req, res) => {
   const { toner_name, colour, quantity } = req.body;
+  
   Toner.update({ toner_name, colour, quantity }, {
     where: {
       id: req.params.id
@@ -59,4 +60,16 @@ exports.updateToner = (req, res) => {
     console.log(err)
     res.status(500).send({error: err.message})
   })
+}
+
+exports.allToners = (req, res) => {
+  Toner.findAll()
+    .then((toners) => {
+      if (toners) {
+        res.send(toners)
+      } else {
+        console.log("No toners found")
+      }
+    })
+    .catch(err => console.log(err))
 }
