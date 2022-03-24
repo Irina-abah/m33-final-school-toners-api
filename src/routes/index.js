@@ -14,10 +14,10 @@ router.get('/crash-test', () => {
 
 router.post('/signup', register);
 router.post('/signin', login);
-router.use('/users', userRoutes);
-router.use('/schools', schoolRoutes);
-router.use('/toners', tonerRoutes);
-router.post("/locations", locationRoutes)
+router.use('/users', auth, userRoutes);
+router.use('/schools', auth, schoolRoutes);
+router.use('/toners', auth, tonerRoutes);
+router.post("/locations", auth, locationRoutes)
 
 router.use('*', auth, (req, res) => {
   res.status(404).send({message: "Not found"})
